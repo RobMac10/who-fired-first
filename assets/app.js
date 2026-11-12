@@ -9,7 +9,7 @@
     if (!panels[name]) name = 'brief';
     Object.keys(panels).forEach(function (k) { panels[k].classList.toggle('active', k === name); });
     tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === name)); });
-    if (history.replaceState) history.replaceState(null, '', '#' + name);
+    if (focusTop !== undefined && history.replaceState) history.replaceState(null, '', '#' + name);
     if (name === 'casefile') grow();
     if (focusTop) { var t = document.querySelector('.tabs'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
@@ -18,7 +18,7 @@
     b.addEventListener('click', function () { show(b.dataset.goto, true); });
   });
   var start = (location.hash || '').replace('#', '');
-  show(start === 'casefile' ? 'casefile' : 'brief', false);
+  show(start === 'casefile' ? 'casefile' : 'brief');
 
   // saving
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea[data-key]'));
