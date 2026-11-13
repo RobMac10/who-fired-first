@@ -28,6 +28,28 @@
   window.addEventListener('hashchange', fromHash);
   fromHash();
 
+
+  // Easy-read toggle: Nell in Patrick Hand; teacher notes stay in Italianno.
+  // Remembered on this device only. Print uses the mode that is on.
+  var EASY_KEY = 'who-fired-first-easy-read';
+  var easy = document.getElementById('easy-read');
+  function applyEasy(on) {
+    document.body.classList.toggle('easy-read', !!on);
+    if (easy) {
+      easy.checked = !!on;
+      easy.setAttribute('aria-checked', on ? 'true' : 'false');
+      var st = document.querySelector('.easy-toggle .easy-state');
+      if (st) st.textContent = on ? 'On' : 'Off';
+    }
+    try { localStorage.setItem(EASY_KEY, on ? '1' : '0'); } catch (e) {}
+  }
+  if (easy) {
+    var saved = false;
+    try { saved = localStorage.getItem(EASY_KEY) === '1'; } catch (e) {}
+    applyEasy(saved);
+    easy.addEventListener('change', function () { applyEasy(easy.checked); });
+  }
+
   // saving
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea[data-key]'));
   var radios = Array.prototype.slice.call(document.querySelectorAll('input[name=confidence]'));

@@ -198,6 +198,11 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   src:url("fonts/Italianno-Regular.ttf") format("truetype");
   font-weight:400;font-style:normal;font-display:swap;
 }
+@font-face{
+  font-family:"Cedarville Cursive";
+  src:url("fonts/CedarvilleCursive-Regular.ttf") format("truetype");
+  font-weight:400;font-style:normal;font-display:swap;
+}
 
 /* exhibit cover */
 .exhibit-cover{
@@ -214,7 +219,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 
 /* notebook */
 .notebook{
-  --line:1.7rem;
+  --line:2.05rem;
   --ink:#2a2118;
   --rule:#c9b89a;
   --margin:#c45a4a;
@@ -226,16 +231,16 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   border:1px solid #d3c2a4;
   box-shadow:0 10px 28px #5a3a1a22, inset 0 0 0 1px #fff6;
   color:var(--ink);
-  font-family:"Patrick Hand",cursive;
-  font-size:1.28rem;
+  font-family:"Cedarville Cursive",cursive;
+  font-size:1.55rem;
   line-height:var(--line);
 }
 .notebook p{margin:0}
 .name-block{padding:0 1.2rem 1.2rem 11.2rem;line-height:var(--line)}
-.name-block .nm{font-size:1.55rem}
+.name-block .nm{font-size:1.75rem}
 .entry{margin:0 0 1.4rem}
 .notebook .date{
-  font-family:"Patrick Hand",cursive;font-size:1.28rem;font-weight:400;
+  font-family:"Cedarville Cursive",cursive;font-size:1.55rem;font-weight:400;
   color:var(--ink);margin:0;padding:0 1.2rem 0 11.2rem;border:0;
   text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;
 }
@@ -281,7 +286,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 
 @media(max-width:760px){
   .tabs button{font-size:.92rem;padding:12px 8px}
-  .notebook{--line:1.65rem;font-size:1.18rem;padding:1rem .2rem 1.6rem;background:
+  .notebook{--line:1.95rem;font-size:1.42rem;padding:1rem .2rem 1.6rem;background:
     repeating-linear-gradient(#f6ead3 0, #f6ead3 calc(var(--line) - 1px), var(--rule) calc(var(--line) - 1px), var(--rule) var(--line));
     background-color:#f6ead3;
   }
@@ -316,4 +321,56 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   .exhibit-cover{box-shadow:none;break-inside:avoid}
   .entry,.line{break-inside:avoid}
   .smudge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* Easy-read: Nell in a plain hand; Mrs Hayes stays in copperplate */
+.easy-read .notebook{
+  --line:1.7rem;
+  font-family:"Patrick Hand",cursive;
+  font-size:1.28rem;
+}
+.easy-read .notebook .date{font-family:"Patrick Hand",cursive;font-size:1.28rem}
+.easy-read .name-block .nm{font-size:1.55rem}
+
+/* ink blots — decorative, not content */
+.blot{position:absolute;pointer-events:none;user-select:none;z-index:0;opacity:.88}
+.notebook .line,.notebook .name-block,.notebook .entry,.notebook .date,.notebook .class-label{position:relative;z-index:1}
+.blot-1{left:.3rem;bottom:.35rem;width:3.8rem;height:auto}
+.blot-2{right:.25rem;bottom:.3rem;width:2.8rem;height:auto}
+.blot-3{left:.3rem;top:.3rem;width:2.6rem;height:auto}
+
+/* Easy-read toggle */
+.tools{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center}
+.easy-toggle{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font:700 1rem/1.2 system-ui,sans-serif;color:#4a2e1b;
+  background:#fff8ee;border:2px solid #8b3a1e;border-radius:999px;
+  padding:8px 14px 8px 16px;user-select:none;
+}
+.easy-toggle:hover{background:#f7efe3}
+.easy-toggle input{position:absolute;opacity:0;width:1px;height:1px}
+.easy-toggle .switch{
+  display:inline-block;width:2.5rem;height:1.35rem;border-radius:999px;
+  background:#c9b79c;position:relative;flex:none;transition:background .15s;
+}
+.easy-toggle .switch::after{
+  content:"";position:absolute;top:2px;left:3px;width:1.05rem;height:1.05rem;
+  border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:left .15s;
+}
+.easy-toggle input:checked + .switch{background:#8b3a1e}
+.easy-toggle input:checked + .switch::after{left:1.15rem}
+.easy-toggle .easy-state{font-weight:700;min-width:2.2em;color:#5c5148}
+.easy-toggle input:checked ~ .easy-state{color:#8b3a1e}
+
+
+@media(max-width:760px){
+  .easy-read .notebook{--line:1.65rem;font-size:1.18rem}
+  .easy-toggle{font-size:.95rem;padding:7px 12px 7px 14px}
+  .blot-1{left:.2rem;bottom:.3rem;width:2.8rem}
+  .blot-2{right:.2rem;bottom:.25rem;width:2.2rem}
+  .blot-3{left:auto;right:.25rem;top:.25rem;width:2.2rem}
+}
+@media print{
+  .easy-toggle{display:none!important}
+  .blot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
