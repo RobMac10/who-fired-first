@@ -257,6 +257,10 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 .name-block .nm{font-size:1.75rem}
 .name-block .school{font-size:1.12rem}
 .entry{margin:0 0 1.4rem}
+.notebook .place{
+  font-family:"Cedarville Cursive",cursive;font-size:1.28rem;font-weight:400;
+  color:var(--ink);margin:0;padding:0 1.2rem 0 11.2rem;
+}
 .notebook .date{
   font-family:"Cedarville Cursive",cursive;font-size:1.55rem;font-weight:400;
   color:var(--ink);margin:0;padding:0 1.2rem 0 11.2rem;border:0;
@@ -309,7 +313,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
     repeating-linear-gradient(#f6ead3 0, #f6ead3 calc(var(--line) - 1px), var(--rule) calc(var(--line) - 1px), var(--rule) var(--line));
     background-color:#f6ead3;
   }
-  .name-block,.notebook .date,.notebook .class-label{padding-left:1rem;padding-right:1rem}
+  .name-block,.notebook .place,.notebook .date,.notebook .class-label{padding-left:1rem;padding-right:1rem}
   .line{display:block;padding:0 1rem}
   .margin:empty{display:none}
   .margin:not(:empty){padding:0 0 .2rem .7rem;min-height:0;border-left:3px solid #b01e18;margin:0 0 .4rem}
@@ -348,13 +352,14 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   font-family:"Kalam",cursive;
   font-size:1.28rem;
 }
+.easy-read .notebook .place{font-family:"Kalam",cursive;font-size:1.12rem}
 .easy-read .notebook .date{font-family:"Kalam",cursive;font-size:1.28rem}
 .easy-read .name-block .nm{font-size:1.55rem}
 .easy-read .name-block .school{font-size:1.02rem}
 
 /* ink blots — decorative, not content */
 .blot{position:absolute;pointer-events:none;user-select:none;z-index:0;opacity:.88}
-.notebook .line,.notebook .name-block,.notebook .entry,.notebook .date,.notebook .class-label,.name-block .school{position:relative;z-index:1}
+.notebook .line,.notebook .name-block,.notebook .entry,.notebook .place,.notebook .date,.notebook .class-label,.name-block .school{position:relative;z-index:1}
 .blot-1{left:.3rem;bottom:.35rem;width:3.8rem;height:auto}
 .blot-2{right:.25rem;bottom:.3rem;width:2.8rem;height:auto}
 .blot-3{left:.3rem;top:.3rem;width:2.6rem;height:auto}
