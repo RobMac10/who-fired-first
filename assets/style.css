@@ -203,6 +203,11 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   src:url("fonts/CedarvilleCursive-Regular.ttf") format("truetype");
   font-weight:400;font-style:normal;font-display:swap;
 }
+@font-face{
+  font-family:"Kalam";
+  src:url("fonts/Kalam-Regular.ttf") format("truetype");
+  font-weight:400;font-style:normal;font-display:swap;
+}
 
 /* exhibit cover */
 .exhibit-cover{
@@ -326,10 +331,10 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 /* Easy-read: Nell in a plain hand; Mrs Hayes stays in copperplate */
 .easy-read .notebook{
   --line:1.7rem;
-  font-family:"Patrick Hand",cursive;
+  font-family:"Kalam",cursive;
   font-size:1.28rem;
 }
-.easy-read .notebook .date{font-family:"Patrick Hand",cursive;font-size:1.28rem}
+.easy-read .notebook .date{font-family:"Kalam",cursive;font-size:1.28rem}
 .easy-read .name-block .nm{font-size:1.55rem}
 
 /* ink blots — decorative, not content */

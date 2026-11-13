@@ -29,7 +29,7 @@
   fromHash();
 
 
-  // Easy-read toggle: Nell in Patrick Hand; teacher notes stay in Italianno.
+  // Easy-read toggle: Nell in Kalam (slanted hand-print); teacher notes stay in Italianno.
   // Remembered on this device only. Print uses the mode that is on.
   var EASY_KEY = 'who-fired-first-easy-read';
   var easy = document.getElementById('easy-read');
