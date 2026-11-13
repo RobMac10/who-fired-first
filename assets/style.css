@@ -214,6 +214,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   max-width:36rem;margin:1.2em auto 2.2em;padding:2.4rem 1.6rem 2rem;
   text-align:center;background:#f7f0e3;border:3px solid #8b3a1e;border-radius:2px;
   box-shadow:0 8px 22px #5a3a1a22;
+  box-sizing:border-box;width:100%;min-width:0;overflow:hidden;
 }
 .exhibit-cover h2{font-size:2.4rem;margin:.2em 0 .15em;color:#4a2e1b;border:0;padding:0}
 .cover-kicker{font:700 .82rem/1.3 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a67c2e;margin:0 0 .6em}
@@ -223,16 +224,62 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 .exhibit-label{font:700 .95rem/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#4a2e1b;margin:0}
 .cover-school{
   font:700 .78rem/1.45 system-ui,sans-serif;letter-spacing:.08em;
-  text-transform:uppercase;color:#4a2e1b;margin:.85em auto 0;max-width:22rem;
+  text-transform:uppercase;color:#4a2e1b;margin:.85em auto 0;max-width:100%;
 }
-.cover-print{margin:1rem auto 0;padding:0;border:0;max-width:22rem}
-.cover-print img{
-  display:block;width:100%;height:auto;
+.cover-print{
+  margin:1rem auto 0;padding:0;border:0;
+  width:100%;max-width:100%;min-width:0;
+  box-sizing:border-box;
+}
+.cover-zoom{
+  display:block;width:100%;max-width:100%;min-width:0;
+  margin:0;padding:0;border:0;background:none;
+  cursor:zoom-in;border-radius:0;
+}
+.cover-zoom img{
+  display:block;width:100%;max-width:100%;height:auto;
+  box-sizing:border-box;vertical-align:middle;
   border:1px solid #3a2a1c;box-shadow:2px 3px 10px #5a3a1a33;
 }
 .cover-print figcaption{
   font:italic .85rem/1.35 Georgia,serif;color:#6b5e52;margin:.45em 0 0;
 }
+
+/* Magnify the chapel sketch */
+.visually-hidden{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.lightbox{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(20,14,10,.92);
+  display:flex;align-items:center;justify-content:center;
+}
+.lightbox[hidden]{display:none!important}
+.lightbox-close{
+  position:fixed;top:10px;right:12px;z-index:201;
+  width:2.6rem;height:2.6rem;padding:0;border:0;border-radius:50%;
+  background:#f7f0e3;color:#3a2a1c;font:700 1.8rem/1 Georgia,serif;
+  cursor:pointer;box-shadow:0 2px 8px #0008;
+}
+.lightbox-close:hover,.lightbox-close:focus{background:#fff;outline:2px solid #ead09b}
+.lightbox-stage{
+  box-sizing:border-box;width:100%;height:100%;
+  overflow:auto;touch-action:pan-x pan-y pinch-zoom;
+  -webkit-overflow-scrolling:touch;
+  display:flex;align-items:center;justify-content:center;
+  padding:3.4rem 1rem 1rem;
+}
+.lightbox-stage img{
+  display:block;max-width:100%;max-height:calc(100vh - 4.4rem);
+  width:auto;height:auto;cursor:zoom-in;
+}
+.lightbox.is-zoomed .lightbox-stage{display:block}
+.lightbox.is-zoomed .lightbox-stage img{
+  max-width:none;max-height:none;width:min(2400px, 200vw);
+  height:auto;margin:0 auto;cursor:zoom-out;
+}
+body.lightbox-open{overflow:hidden}
 
 /* notebook */
 .notebook{
@@ -342,6 +389,8 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
   .teacher{color:#b01e18;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .spell .wrong,.spell .fix{color:#b01e18;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .exhibit-cover{box-shadow:none;break-inside:avoid}
+  .cover-print,.cover-zoom, .cover-zoom img{max-width:100%;width:100%;height:auto;box-shadow:none;cursor:default}
+  .lightbox{display:none!important}
   .entry,.line{break-inside:avoid}
   .smudge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }

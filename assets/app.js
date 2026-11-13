@@ -90,4 +90,73 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-print]'), function (b) {
     if (b.tagName === 'BUTTON') b.addEventListener('click', function () { doPrint(b.dataset.print); });
   });
+
+
+  // Chapel sketch lightbox: tap to magnify, pinch/scroll to zoom, close with tap, × or Esc.
+  (function chapelLightbox() {
+    var lb = document.getElementById('chapel-lightbox');
+    var openBtn = document.getElementById('chapel-zoom');
+    if (!lb || !openBtn) return;
+    var closeBtn = lb.querySelector('.lightbox-close');
+    var stage = lb.querySelector('.lightbox-stage');
+    var img = stage ? stage.querySelector('img') : null;
+    var lastFocus = null;
+
+    function isOpen() { return !lb.hasAttribute('hidden'); }
+
+    function open() {
+      lastFocus = document.activeElement;
+      lb.removeAttribute('hidden');
+      lb.classList.remove('is-zoomed');
+      document.body.classList.add('lightbox-open');
+      if (closeBtn) closeBtn.focus();
+      if (history.replaceState && location.hash !== '#chapel') {
+        history.replaceState(null, '', '#chapel');
+      }
+    }
+    function close() {
+      if (!isOpen()) return;
+      lb.setAttribute('hidden', '');
+      lb.classList.remove('is-zoomed');
+      document.body.classList.remove('lightbox-open');
+      if (history.replaceState && location.hash === '#chapel') {
+        history.replaceState(null, '', '#diary');
+      }
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function toggleZoom() { lb.classList.toggle('is-zoomed'); }
+
+    openBtn.addEventListener('click', function (e) { e.preventDefault(); open(); });
+    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    if (img) {
+      img.addEventListener('click', function (e) { e.stopPropagation(); toggleZoom(); });
+    }
+    if (stage) {
+      stage.addEventListener('click', function (e) {
+        if (e.target === stage) close();
+      });
+    }
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) { e.preventDefault(); close(); }
+    });
+    window.addEventListener('hashchange', function () {
+      if (location.hash === '#chapel') open();
+      else if (isOpen()) close();
+    });
+    if (location.hash === '#chapel') open();
+  })();
+
+  // Optional ?shot=cover scrolls the diary cover into view (used for previews).
+  if (/(?:^|[?&])shot=cover(?:&|$)/.test(location.search)) {
+    var scrollCover = function () {
+      var el = document.querySelector(".exhibit-cover");
+      if (el) el.scrollIntoView({ block: "center", inline: "nearest" });
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scrollCover);
+    setTimeout(scrollCover, 60);
+  }
+
 })();
