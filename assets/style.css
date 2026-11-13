@@ -186,3 +186,134 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
  body[data-print=finding] #finding-sheet{break-before:auto}
  footer{border:0;margin-top:14px;padding:6px 0}
 }
+
+/* local handwriting fonts */
+@font-face{
+  font-family:"Patrick Hand";
+  src:url("fonts/PatrickHand-Regular.ttf") format("truetype");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"Italianno";
+  src:url("fonts/Italianno-Regular.ttf") format("truetype");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+
+/* exhibit cover */
+.exhibit-cover{
+  max-width:36rem;margin:1.2em auto 2.2em;padding:2.4rem 1.6rem 2rem;
+  text-align:center;background:#f7f0e3;border:3px solid #8b3a1e;border-radius:2px;
+  box-shadow:0 8px 22px #5a3a1a22;
+}
+.exhibit-cover h2{font-size:2.4rem;margin:.2em 0 .15em;color:#4a2e1b;border:0;padding:0}
+.cover-kicker{font:700 .82rem/1.3 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a67c2e;margin:0 0 .6em}
+.exhibit-cover .cover-sub{font:italic 1.15rem Georgia,serif;color:#8b3a1e;margin:0 0 .4em;letter-spacing:0;text-transform:none}
+.exhibit-cover .cover-strap{font-size:.95rem;color:#6b5e52;margin:0 0 1em}
+.cover-rule{border:0;border-top:1px solid #c9a15c;width:55%;margin:1em auto}
+.exhibit-label{font:700 .95rem/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#4a2e1b;margin:0}
+
+/* notebook */
+.notebook{
+  --line:1.7rem;
+  --ink:#2a2118;
+  --rule:#c9b89a;
+  --margin:#c45a4a;
+  position:relative;margin:0 auto 2em;padding:1.4rem 1.2rem 2.2rem 0;
+  background:
+    linear-gradient(90deg,transparent calc(10.6rem - 1px),var(--margin) calc(10.6rem - 1px),var(--margin) 10.6rem,transparent 10.6rem),
+    repeating-linear-gradient(#f6ead3 0, #f6ead3 calc(var(--line) - 1px), var(--rule) calc(var(--line) - 1px), var(--rule) var(--line));
+  background-color:#f6ead3;
+  border:1px solid #d3c2a4;
+  box-shadow:0 10px 28px #5a3a1a22, inset 0 0 0 1px #fff6;
+  color:var(--ink);
+  font-family:"Patrick Hand",cursive;
+  font-size:1.28rem;
+  line-height:var(--line);
+}
+.notebook p{margin:0}
+.name-block{padding:0 1.2rem 1.2rem 11.2rem;line-height:var(--line)}
+.name-block .nm{font-size:1.55rem}
+.entry{margin:0 0 1.4rem}
+.notebook .date{
+  font-family:"Patrick Hand",cursive;font-size:1.28rem;font-weight:400;
+  color:var(--ink);margin:0;padding:0 1.2rem 0 11.2rem;border:0;
+  text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;
+}
+.notebook .class-label{padding:0 1.2rem 0 11.2rem;font-style:italic;color:#4a3a2c}
+.line{display:grid;grid-template-columns:10.6rem 1fr;column-gap:1.1rem;align-items:start}
+.line > p{padding-right:1.2rem;min-width:0}
+.margin{padding:0 .55rem 0 .7rem;min-height:var(--line)}
+.teacher{
+  font-family:"Italianno",cursive;font-size:1.55rem;line-height:1.25;
+  color:#b01e18;margin:0 0 .35rem;transform:rotate(-2deg);
+  text-wrap:pretty;
+}
+.spell{ruby-position:over;ruby-align:center;white-space:nowrap}
+.spell .wrong{text-decoration:underline;text-decoration-color:#b01e18;text-underline-offset:2px;text-decoration-thickness:1.5px}
+.spell rt,.spell .fix{
+  font-family:"Italianno",cursive;font-size:1.2em;color:#b01e18;
+  line-height:1;font-style:normal;transform:rotate(-5deg);
+  -webkit-text-emphasis:none;
+}
+.breakoff{position:relative}
+.smudge{
+  display:inline-block;width:3.6rem;height:1.5rem;vertical-align:middle;margin-left:.15em;
+  background:url("smudge-ink.png") center / contain no-repeat;opacity:.85;
+}
+.notebook + .endline, #diary .endline{
+  font-family:Georgia,serif;font-size:1.35rem;margin:1.4em 0 1em;
+}
+
+/* teacher reveal panel — bottom of diary tab, closed by default */
+.teacher-true{
+  margin:2.6em 0 1em;padding:0;border-top:2px dashed #d6c5ae;font-family:system-ui,sans-serif;
+}
+.teacher-true summary{
+  cursor:pointer;font:700 .95rem/1.4 system-ui,sans-serif;letter-spacing:.04em;
+  color:#5c5148;padding:14px 0;list-style:none;
+}
+.teacher-true summary::-webkit-details-marker{display:none}
+.teacher-true summary::before{content:"▸ ";color:#a67c2e}
+.teacher-true[open] summary::before{content:"▾ "}
+.teacher-true-body{padding:0 0 1em;max-width:42rem}
+.teacher-true-body p{margin:0 0 .9em;font-size:.98rem;line-height:1.6;color:#3d332d}
+.teacher-true-body .reveal{font-weight:700;color:#4a2e1b}
+
+@media(max-width:760px){
+  .tabs button{font-size:.92rem;padding:12px 8px}
+  .notebook{--line:1.65rem;font-size:1.18rem;padding:1rem .2rem 1.6rem;background:
+    repeating-linear-gradient(#f6ead3 0, #f6ead3 calc(var(--line) - 1px), var(--rule) calc(var(--line) - 1px), var(--rule) var(--line));
+    background-color:#f6ead3;
+  }
+  .name-block,.notebook .date,.notebook .class-label{padding-left:1rem;padding-right:1rem}
+  .line{display:block;padding:0 1rem}
+  .margin:empty{display:none}
+  .margin:not(:empty){padding:0 0 .2rem .7rem;min-height:0;border-left:3px solid #b01e18;margin:0 0 .4rem}
+  .teacher{font-size:1.45rem;transform:none;margin:0 0 .15rem}
+  .exhibit-cover{padding:1.6rem 1rem 1.4rem}
+  .exhibit-cover h2{font-size:2rem}
+}
+
+@media print{
+  body[data-print=diary] #diary{display:block!important}
+  body[data-print=diary] .teacher-true,
+  body[data-print] .teacher-true,
+  .teacher-true{/* hidden only when printing: overridden below */}
+  body[data-print=diary] .teacher-true,
+  body[data-print=brief] .teacher-true,
+  body[data-print=casefile] .teacher-true,
+  body[data-print=finding] .teacher-true{display:none!important}
+  /* if the user prints the open tab from the browser menu, hide the teacher panel */
+  body:not([data-print]) .teacher-true{display:none!important}
+  .notebook{
+    box-shadow:none;border-color:#bbb;background:
+      linear-gradient(90deg,transparent calc(9.6rem - 1px),#c45a4a calc(9.6rem - 1px),#c45a4a 9.6rem,transparent 9.6rem),
+      repeating-linear-gradient(#fff 0, #fff 21px, #ccc 21px, #ccc 22px);
+    --line:22px;font-size:13pt;color:#000;break-inside:auto;
+  }
+  .teacher{color:#b01e18;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .spell .wrong,.spell .fix{color:#b01e18;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .exhibit-cover{box-shadow:none;break-inside:avoid}
+  .entry,.line{break-inside:avoid}
+  .smudge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}

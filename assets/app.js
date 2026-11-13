@@ -3,10 +3,14 @@
   root.classList.add('js');
   var KEY = 'who-fired-first-eureka-v1';
   var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
-  var panels = { brief: document.getElementById('brief'), casefile: document.getElementById('casefile') };
+  var panels = {
+    diary: document.getElementById('diary'),
+    brief: document.getElementById('brief'),
+    casefile: document.getElementById('casefile')
+  };
 
   function show(name, focusTop) {
-    if (!panels[name]) name = 'brief';
+    if (!panels[name]) name = 'diary';
     Object.keys(panels).forEach(function (k) { panels[k].classList.toggle('active', k === name); });
     tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === name)); });
     if (focusTop !== undefined && history.replaceState) history.replaceState(null, '', '#' + name);
@@ -17,8 +21,12 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-goto]'), function (b) {
     b.addEventListener('click', function () { show(b.dataset.goto, true); });
   });
-  var start = (location.hash || '').replace('#', '');
-  show(start === 'casefile' ? 'casefile' : 'brief');
+  function fromHash() {
+    var name = (location.hash || '').replace('#', '');
+    show(panels[name] ? name : 'diary');
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
 
   // saving
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea[data-key]'));
@@ -48,10 +56,9 @@
     radios.forEach(function (r) { r.checked = false; });
   });
 
-  // printing
   function doPrint(mode) {
-    if (mode === 'brief') show('brief');
-    else show('casefile');
+    if (mode === 'finding') show('casefile');
+    else if (panels[mode]) show(mode);
     document.body.setAttribute('data-print', mode);
     grow();
     var done = function () { document.body.removeAttribute('data-print'); window.removeEventListener('afterprint', done); };
