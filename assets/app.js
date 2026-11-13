@@ -1,20 +1,22 @@
 (function () {
   var root = document.documentElement;
   root.classList.add('js');
-  var KEY = 'who-fired-first-eureka-v1';
+  var KEY = 'who-fired-first-eureka-v2';
   var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
   var panels = {
     diary: document.getElementById('diary'),
-    brief: document.getElementById('brief'),
-    casefile: document.getElementById('casefile')
+    case: document.getElementById('case'),
+    finding: document.getElementById('finding')
   };
+  var aliases = { brief: 'case', casefile: 'finding' };
 
   function show(name, focusTop) {
+    name = aliases[name] || name;
     if (!panels[name]) name = 'diary';
     Object.keys(panels).forEach(function (k) { panels[k].classList.toggle('active', k === name); });
     tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === name)); });
     if (focusTop !== undefined && history.replaceState) history.replaceState(null, '', '#' + name);
-    if (name === 'casefile') grow();
+    if (name === 'case' || name === 'finding') grow();
     if (focusTop) { var t = document.querySelector('.tabs'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
   tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab, true); }); });
@@ -23,6 +25,7 @@
   });
   function fromHash() {
     var name = (location.hash || '').replace('#', '');
+    name = aliases[name] || name;
     show(panels[name] ? name : 'diary');
   }
   window.addEventListener('hashchange', fromHash);
@@ -52,7 +55,7 @@
 
   // saving
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea[data-key]'));
-  var radios = Array.prototype.slice.call(document.querySelectorAll('input[name=confidence]'));
+  var radios = Array.prototype.slice.call(document.querySelectorAll('input[type=radio][name]'));
   var data = {};
   try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { data = {}; }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
@@ -61,8 +64,8 @@
     f.addEventListener('input', function () { data[f.dataset.key] = f.value; save(); size(f); });
   });
   radios.forEach(function (r) {
-    if (data.confidence === r.value) r.checked = true;
-    r.addEventListener('change', function () { data.confidence = r.value; save(); });
+    if (data[r.name] === r.value) r.checked = true;
+    r.addEventListener('change', function () { data[r.name] = r.value; save(); });
   });
   function size(f) { f.style.height = 'auto'; f.style.height = (f.scrollHeight + 2) + 'px'; }
   function grow() { if (fields) fields.forEach(size); }
@@ -79,8 +82,8 @@
   });
 
   function doPrint(mode) {
-    if (mode === 'finding') show('casefile');
-    else if (panels[mode]) show(mode);
+    mode = aliases[mode] || mode;
+    if (panels[mode]) show(mode);
     document.body.setAttribute('data-print', mode);
     grow();
     var done = function () { document.body.removeAttribute('data-print'); window.removeEventListener('afterprint', done); };
@@ -147,6 +150,50 @@
       else if (isOpen()) close();
     });
     if (location.hash === '#chapel') open();
+  })();
+
+
+  // Portrait lightbox: tap a witness image to magnify.
+  (function portraitLightbox() {
+    var lb = document.getElementById('portrait-lightbox');
+    if (!lb) return;
+    var closeBtn = lb.querySelector('.lightbox-close');
+    var stage = lb.querySelector('.lightbox-stage');
+    var img = stage ? stage.querySelector('img') : null;
+    var title = document.getElementById('portrait-lightbox-title');
+    var lastFocus = null;
+    function isOpen() { return !lb.hasAttribute('hidden'); }
+    function open(src, alt) {
+      lastFocus = document.activeElement;
+      if (img) { img.src = src; img.alt = alt || ''; }
+      if (title) title.textContent = alt || 'Magnified portrait';
+      lb.removeAttribute('hidden');
+      lb.classList.remove('is-zoomed');
+      document.body.classList.add('lightbox-open');
+      if (closeBtn) closeBtn.focus();
+    }
+    function close() {
+      if (!isOpen()) return;
+      lb.setAttribute('hidden', '');
+      lb.classList.remove('is-zoomed');
+      document.body.classList.remove('lightbox-open');
+      if (img) { img.src = ''; }
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    document.querySelectorAll('.portrait-zoom').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var im = btn.querySelector('img');
+        open(btn.getAttribute('data-full') || (im && im.src), im ? im.alt : '');
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    if (img) img.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('is-zoomed'); });
+    if (stage) stage.addEventListener('click', function (e) { if (e.target === stage) close(); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) { e.preventDefault(); close(); }
+    });
   })();
 
   // Optional ?shot=cover scrolls the diary cover into view (used for previews).
