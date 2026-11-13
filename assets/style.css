@@ -540,3 +540,28 @@ body.lightbox-open{overflow:hidden}
   body[data-print=sleuth] .sleuth-sec > summary::after{display:none}
   .sleuth-sec .portrait-zoom img{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+
+/* Interactive Nell's Diary: on-screen button is in .tools; QR only in print */
+.diary-app-print{display:none}
+@media print{
+  body[data-print=diary] .diary-app-print{
+    display:flex!important;
+    gap:14px;
+    align-items:center;
+    margin:14pt 0 0;
+    padding:8pt 10pt;
+    border:1.5pt solid #a67c2e;
+    background:#f7f0e3;
+    break-inside:avoid;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  body[data-print=diary] .diary-app-print img{
+    width:28mm;height:28mm;flex:0 0 28mm;
+  }
+  body[data-print=diary] .diary-app-print .label{
+    font-weight:700;color:#4a2e1b;margin:0 0 2pt;font-size:11pt;
+  }
+  body[data-print=diary] .diary-app-print p{margin:0;font-size:10pt;color:#2b221c}
+}
