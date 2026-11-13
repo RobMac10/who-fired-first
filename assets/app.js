@@ -6,9 +6,10 @@
   var panels = {
     diary: document.getElementById('diary'),
     case: document.getElementById('case'),
-    finding: document.getElementById('finding')
+    finding: document.getElementById('finding'),
+    sleuth: document.getElementById('sleuth')
   };
-  var aliases = { brief: 'case', casefile: 'finding' };
+  var aliases = { brief: 'case', casefile: 'finding', supersleuths: 'sleuth', 'super-sleuths': 'sleuth' };
 
   function show(name, focusTop) {
     name = aliases[name] || name;
@@ -16,7 +17,7 @@
     Object.keys(panels).forEach(function (k) { panels[k].classList.toggle('active', k === name); });
     tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.tab === name)); });
     if (focusTop !== undefined && history.replaceState) history.replaceState(null, '', '#' + name);
-    if (name === 'case' || name === 'finding') grow();
+    if (name === 'case' || name === 'finding' || name === 'sleuth') grow();
     if (focusTop) { var t = document.querySelector('.tabs'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
   tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.tab, true); }); });
@@ -73,20 +74,33 @@
   window.addEventListener('beforeprint', grow);
   setTimeout(grow, 50);
 
-  var clear = document.getElementById('clear');
-  if (clear) clear.addEventListener('click', function () {
+  function clearAnswers() {
     if (!window.confirm('Clear everything you have written on this device?')) return;
     data = {}; save();
     fields.forEach(function (f) { f.value = ''; size(f); });
     radios.forEach(function (r) { r.checked = false; });
+  }
+  ['clear', 'clear-sleuth'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b) b.addEventListener('click', clearAnswers);
   });
 
   function doPrint(mode) {
     mode = aliases[mode] || mode;
     if (panels[mode]) show(mode);
+    var opened = [];
+    if (mode === 'sleuth') {
+      document.querySelectorAll('#sleuth details').forEach(function (d) {
+        if (!d.open) { d.open = true; opened.push(d); }
+      });
+    }
     document.body.setAttribute('data-print', mode);
     grow();
-    var done = function () { document.body.removeAttribute('data-print'); window.removeEventListener('afterprint', done); };
+    var done = function () {
+      document.body.removeAttribute('data-print');
+      opened.forEach(function (d) { d.open = false; });
+      window.removeEventListener('afterprint', done);
+    };
     window.addEventListener('afterprint', done);
     setTimeout(function () { window.print(); }, 50);
   }
@@ -183,6 +197,7 @@
     document.querySelectorAll('.portrait-zoom').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var im = btn.querySelector('img');
         open(btn.getAttribute('data-full') || (im && im.src), im ? im.alt : '');
       });

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-labelledby="title desc">
+  <title id="title">Silhouette name card for Anastasia Hayes</title>
+  <desc id="desc">A plain period-style silhouette of a woman’s head and shoulders, with a name card. This is not a portrait or a likeness of Anastasia Hayes.</desc>
+  <rect width="300" height="400" fill="#f7f0e3"/>
+  <rect x="18" y="18" width="264" height="364" fill="none" stroke="#c9a96a" stroke-width="2"/>
+  <!-- bun and head, high collar, no facial features -->
+  <ellipse cx="150" cy="78" rx="32" ry="24" fill="#2b221c"/>
+  <ellipse cx="150" cy="130" rx="62" ry="74" fill="#2b221c"/>
+  <path d="M88 180 C88 230, 100 255, 150 255 C200 255, 212 230, 212 180 L200 200 C200 245, 175 268, 150 268 C125 268, 100 245, 100 200 Z" fill="#2b221c"/>
+  <path d="M70 268 C90 250, 210 250, 230 268 C250 300, 260 340, 260 340 L40 340 C40 340, 50 300, 70 268 Z" fill="#2b221c"/>
+  <rect x="40" y="348" width="220" height="26" fill="#fffaf2" stroke="#3a2a1c" stroke-width="1"/>
+  <text x="150" y="366" text-anchor="middle" font-family="Georgia, Times, serif" font-style="italic" font-size="14" fill="#2b221c">Anastasia Hayes</text>
+</svg>
