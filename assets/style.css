@@ -221,6 +221,18 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 .exhibit-cover .cover-strap{font-size:.95rem;color:#6b5e52;margin:0 0 1em}
 .cover-rule{border:0;border-top:1px solid #c9a15c;width:55%;margin:1em auto}
 .exhibit-label{font:700 .95rem/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#4a2e1b;margin:0}
+.cover-school{
+  font:700 .78rem/1.45 system-ui,sans-serif;letter-spacing:.08em;
+  text-transform:uppercase;color:#4a2e1b;margin:.85em auto 0;max-width:22rem;
+}
+.cover-print{margin:1rem auto 0;padding:0;border:0;max-width:22rem}
+.cover-print img{
+  display:block;width:100%;height:auto;
+  border:1px solid #3a2a1c;box-shadow:2px 3px 10px #5a3a1a33;
+}
+.cover-print figcaption{
+  font:italic .85rem/1.35 Georgia,serif;color:#6b5e52;margin:.45em 0 0;
+}
 
 /* notebook */
 .notebook{
@@ -243,6 +255,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 .notebook p{margin:0}
 .name-block{padding:0 1.2rem 1.2rem 11.2rem;line-height:var(--line)}
 .name-block .nm{font-size:1.75rem}
+.name-block .school{font-size:1.12rem}
 .entry{margin:0 0 1.4rem}
 .notebook .date{
   font-family:"Cedarville Cursive",cursive;font-size:1.55rem;font-weight:400;
@@ -287,6 +300,7 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 .teacher-true[open] summary::before{content:"▾ "}
 .teacher-true-body{padding:0 0 1em;max-width:42rem}
 .teacher-true-body p{margin:0 0 .9em;font-size:.98rem;line-height:1.6;color:#3d332d}
+.teacher-true-body a{color:#8b3a1e}
 .teacher-true-body .reveal{font-weight:700;color:#4a2e1b}
 
 @media(max-width:760px){
@@ -336,10 +350,11 @@ footer p:first-child{font-weight:700;color:#4a2e1b;margin-bottom:6px}
 }
 .easy-read .notebook .date{font-family:"Kalam",cursive;font-size:1.28rem}
 .easy-read .name-block .nm{font-size:1.55rem}
+.easy-read .name-block .school{font-size:1.02rem}
 
 /* ink blots — decorative, not content */
 .blot{position:absolute;pointer-events:none;user-select:none;z-index:0;opacity:.88}
-.notebook .line,.notebook .name-block,.notebook .entry,.notebook .date,.notebook .class-label{position:relative;z-index:1}
+.notebook .line,.notebook .name-block,.notebook .entry,.notebook .date,.notebook .class-label,.name-block .school{position:relative;z-index:1}
 .blot-1{left:.3rem;bottom:.35rem;width:3.8rem;height:auto}
 .blot-2{right:.25rem;bottom:.3rem;width:2.8rem;height:auto}
 .blot-3{left:.3rem;top:.3rem;width:2.6rem;height:auto}
