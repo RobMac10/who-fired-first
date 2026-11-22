@@ -8,9 +8,11 @@
 <meta name="description" content="History Case File: Who Fired First? The Eureka Stockade, 1854. Nell’s Diary, three short witnesses and a finding. Excerpt from Reopen the Record: Australian Histories.">
 <meta property="og:title" content="History Case File: Who Fired First?">
 <meta property="og:description" content="The Eureka Stockade, 1854. Read Nell’s Diary, ask three witnesses, and decide who fired first.">
-<meta property="og:image" content="assets/eureka-books-collage.png">
+<meta property="og:image" content="assets/eureka-books-collage.jpg">
 <link rel="stylesheet" href="assets/style.css">
 
+  <link rel="stylesheet" href="assets/image-fit.css">
+  <link rel="stylesheet" href="assets/place-time.css">
 <style id="imagined-badge-css">
 .imagined-badge{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .55rem;box-sizing:border-box;max-width:100%;margin:0 0 1rem;padding:.5rem .8rem;border:1.5px dashed rgba(60,50,40,.55);border-radius:12px;background:rgba(255,252,244,.92);color:#3d342b;font-family:inherit;line-height:1.35}
 .imagined-badge .ib-icon{flex:0 0 auto;width:22px;height:22px}
@@ -340,6 +342,20 @@
 <p class="lead">Before dawn on Sunday 3 December 1854, soldiers and police marched from the Government Camp at Ballarat to a stockade built by gold diggers on the Eureka lead. Captain Thomas led 276 men. Inside the stockade there were far fewer diggers. Shooting broke out. Within minutes it was over. Everyone agrees there was shooting. Not everyone agrees who started it.</p>
 <p>Nell’s Diary stops at the first shot. These three people were there. Each one left a real record. Read what they said, then ask the same three questions of each.</p>
 <ol class="ask-q"><li>What did they say they saw?</li><li>Could they really have seen it?</li><li>Why might they say it?</li></ol>
+
+
+    <section class="place-time" data-place-time="who-fired-first" aria-label="Place and time">
+      <h3>Place and time</h3>
+      <p class="pt-lead"></p>
+      <div class="pt-mapcard"></div>
+      <p class="pt-maplbl" aria-live="polite"></p>
+      <div class="pt-ctl">
+        <button type="button" class="pt-play">▶ Play</button>
+        <input type="range" min="0" max="1" value="0">
+      </div>
+      <ol class="pt-tl" aria-label="Timeline of places and dates in this file"></ol>
+    </section>
+
 <section class="witness" id="witness-lalor">
 <div class="witness-grid">
 <button type="button" class="portrait-zoom" data-full="assets/witnesses/lalor.jpg" aria-haspopup="dialog" aria-label="Magnify the portrait of Peter Lalor"><img src="assets/witnesses/lalor.jpg" alt="Lithograph portrait of Peter Lalor by Ludwig Becker, 1856. He is shown as a young man with a beard, in a dark coat and a light cloak."><span class="pcaption">Peter Lalor, 1856. Tap to magnify.</span></button>
@@ -555,5 +571,7 @@
 </div>
 
 <script src="assets/app.js"></script>
+<script src="assets/place-time.js"></script>
+
 </body>
 </html>

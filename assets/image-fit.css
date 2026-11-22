@@ -1,0 +1,138 @@
+/* Shared image fit for Reopen the Record apps.
+   Pictures stay on the screen, keep their aspect ratio, and can be enlarged.
+   Leaflet map tiles, book-reader leaves, and small UI marks are left alone. */
+
+img:not(.leaflet-tile):not(.leaflet-marker-icon):not(.leaflet-marker-shadow):not(.leaflet-marker-shadow){
+  max-width:100%;
+  height:auto;
+}
+
+/* Exhibit, document and zoom-target pictures: cap height so a phone can see the whole image. */
+.zoom img,
+.artefact-zoom > img,
+.cover-zoom img,
+.zoomart img,
+.card .pic img,
+.exhibit img,
+.journal-exhibit img,
+figure:not(.leaflet-container figure) > img,
+figure:not(.leaflet-container figure) > button > img,
+.pt-map{
+  max-width:100%;
+  max-height:70vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+
+@media (max-width:600px){
+  .zoom img,
+  .artefact-zoom > img,
+  .cover-zoom img,
+  .zoomart img,
+  .card .pic img,
+  .exhibit img,
+  .journal-exhibit img,
+  figure:not(.leaflet-container figure) > img,
+  figure:not(.leaflet-container figure) > button > img,
+  .pt-map{
+    max-height:60vh;
+  }
+}
+
+/* Reconstructed journal / artefact cards: scale the card to the screen, keep shape. */
+.journal-exhibit .artefact-zoom,
+.journal-exhibit .post,
+.artefact-card{
+  max-width:100%;
+  width:100%;
+  box-sizing:border-box;
+}
+.journal-exhibit .artefact-zoom .post{
+  width:min(560px,100%);
+  max-height:70vh;
+  overflow:auto;
+}
+
+/* Witness and portrait thumbnails stay compact, never overflow, never stretch. */
+.portrait-zoom{
+  max-width:100%;
+}
+.portrait-zoom img,
+.witness figure img{
+  display:block;
+  width:auto;
+  max-width:min(100%,10.5rem);
+  height:auto;
+  max-height:min(55vh,22rem);
+  object-fit:contain;
+}
+@media (max-width:760px){
+  .portrait-zoom img,
+  .witness figure img{
+    max-width:min(100%,8.5rem);
+    max-height:min(50vh,18rem);
+    margin-inline:auto;
+  }
+}
+
+/* Lightbox: the enlarged picture fits the viewport. Pinch/JS zoom may still scale it. */
+.lightbox-stage,
+.lb-stage,
+#lb-stage{
+  max-width:96vw;
+  max-height:92vh;
+  overflow:hidden;
+}
+.lightbox-stage img,
+#lightbox img,
+#lb-img,
+.lb img,
+.lb-stage img{
+  max-width:96vw !important;
+  max-height:88vh !important;
+  width:auto !important;
+  height:auto !important;
+  object-fit:contain !important;
+}
+
+/* QR, emblems and envelope stamps. */
+img.qr,
+.qr-end img,
+.envelope img,
+.cover-qr img,
+.start-card img{
+  max-width:100%;
+  height:auto;
+}
+
+/* Book reader pages keep their own leaf sizing. */
+.leaf img{
+  max-width:var(--page-max-w, 100%);
+  max-height:var(--page-max-h, 70dvh);
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+
+/* Leaflet must not inherit height caps. */
+.leaflet-container img,
+.leaflet-container svg{
+  max-width:none;
+  max-height:none;
+}
+
+/* Casebook cover image: keep the whole cover on screen. */
+.cover-book img{
+  max-width:100%;
+  max-height:70vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  margin-inline:auto;
+}
+
+/* Long source URLs and wide strings must not force the page sideways. */
+.src, .note, .cite, .wrap, .panel, p, li, figcaption {
+  overflow-wrap: anywhere;
+}
