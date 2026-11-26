@@ -565,3 +565,7 @@ body.lightbox-open{overflow:hidden}
   }
   body[data-print=diary] .diary-app-print p{margin:0;font-size:10pt;color:#2b221c}
 }
+
+/* Short Book One link, in place of the old Deep Time tab. */
+.book-one-link{margin:.85rem auto 1.1rem;max-width:36rem;font-size:1.05rem;line-height:1.55;color:#3d332d}
+.book-one-link a{color:#7c2938;text-underline-offset:4px}
